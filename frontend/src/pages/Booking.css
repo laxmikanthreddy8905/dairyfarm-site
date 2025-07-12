@@ -3,9 +3,16 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
- background-image: url('/images/booking3.jpg') no-repeat center center/cover;
+ 
   padding: 20px;
 }
+.booking-container {
+  background-image: url('./images/booking3.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 
 .booking-content {
   background-color: rgba(255, 255, 255, 0.95);

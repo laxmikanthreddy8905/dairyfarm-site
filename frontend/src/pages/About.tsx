@@ -1,6 +1,6 @@
 // ✅ Correct
 import React from 'react';
-import '../styles/PageLayout.css';
+import './About.css';
 
 
 
@@ -8,9 +8,9 @@ const About: React.FC = () => {
   return (
     <div className="about-container">
       <div className="about-content">
-        <h1>About Laxmikanth Dairy Farm</h1>
+        <h1>About  Dairy Farm</h1>
         <p>
-          Established in 2020, Laxmikanth Dairy Farm is a family-owned business located in the heart of Telangana.
+          Establish in coming soon,  Farm is a family-owned business located in the heart of Telangana.
           Our mission is to deliver premium-quality dairy products directly to your doorstep.
         </p>
         <p>
