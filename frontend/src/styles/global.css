@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  background-color: lightgreen;
+  padding: 10px;
+}
+input, select, button {
+  padding: 8px;
+  margin-bottom: 10px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+img, input, button, select {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 16px;
+}
+
