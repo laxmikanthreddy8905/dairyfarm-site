@@ -29,7 +29,7 @@ const Contact: React.FC = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/feedback', {
+      const res = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, message, rating: feedback }),

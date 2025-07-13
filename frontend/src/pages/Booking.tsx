@@ -18,7 +18,7 @@ const Booking: React.FC = () => {
     const bookingData = { name, date, time };
 
     try {
-      const response = await fetch('http://localhost:5000/api/booking', {
+      const response = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/booking', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
