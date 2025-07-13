@@ -1,5 +1,5 @@
 .about-container {
-  background-image: url('/images/aboutimage.jpg'); /* ✅ Make sure the image exists in public/images */
+  background-image: url('./images/aboutimage.jpg'); /* ✅ Make sure the image exists in public/images */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

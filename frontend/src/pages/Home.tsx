@@ -32,7 +32,7 @@ const Home: React.FC = () => {
   return (
     <div className="home-container">
       <div className="home-content">
-        <h1>Welcome to Laxmikanth Dairy Farm</h1>
+        <h1>Welcome to Bro's Dairy Farm</h1>
         <p>Fresh Milk • Organic Curd • Pure Paneer</p>
         <p>Quality You Can Trust. Taste You’ll Love.</p>
 
