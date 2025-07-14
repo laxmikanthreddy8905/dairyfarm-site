@@ -1,39 +1,44 @@
+// src/pages/Booking.tsx
 import React, { useState } from 'react';
 import './Booking.css';
 
 const Booking: React.FC = () => {
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [people, setPeople] = useState('');
   const [booked, setBooked] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name || !date || !time) {
+    if (!name || !phone || !date || !time || !people) {
       alert('Please fill out all fields.');
       return;
     }
 
-    const bookingData = { name, date, time };
+    const bookingData = { name, phone, date, time, people };
 
     try {
-      const response = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/booking', {
+      const res = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/booking', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bookingData),
       });
 
-      if (response.ok) {
+      if (res.ok) {
         setBooked(true);
-        console.log('Booking submitted:', bookingData);
+        setName('');
+        setPhone('');
+        setDate('');
+        setTime('');
+        setPeople('');
       } else {
-        alert('Failed to submit booking.');
+        alert('Booking failed!');
       }
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (err) {
+      console.error('Booking error:', err);
       alert('Something went wrong. Please try again later.');
     }
   };
@@ -53,6 +58,18 @@ const Booking: React.FC = () => {
               required
             />
           </div>
+
+          <div className="form-group">
+            <label>Your Phone:</label>
+            <input
+              type="tel"
+              placeholder="Enter phone number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+          </div>
+
           <div className="form-group">
             <label>Select Date:</label>
             <input
@@ -62,6 +79,7 @@ const Booking: React.FC = () => {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Select Time:</label>
             <select value={time} onChange={(e) => setTime(e.target.value)} required>
@@ -73,6 +91,18 @@ const Booking: React.FC = () => {
               <option value="04:00 PM">04:00 PM</option>
             </select>
           </div>
+
+          <div className="form-group">
+            <label>Number of People:</label>
+            <input
+              type="number"
+              placeholder="e.g. 4"
+              value={people}
+              onChange={(e) => setPeople(e.target.value)}
+              required
+            />
+          </div>
+
           <button type="submit" className="booking-button">
             Book Now
           </button>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Products.css';
 
 const Products: React.FC = () => {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [milkQty, setMilkQty] = useState(0);
   const [curdQty, setCurdQty] = useState(0);
   const [total, setTotal] = useState<number | null>(null);
@@ -15,18 +17,32 @@ const Products: React.FC = () => {
   }, [milkQty, curdQty]);
 
   const handleOrder = async () => {
-    const res = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ milkQty, curdQty }),
-    });
+    if (!name || !phone || milkQty === 0 && curdQty === 0) {
+      alert('Please fill all fields and select quantity.');
+      return;
+    }
 
-    if (res.ok) {
+    try {
+      const res = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, milkQty, curdQty }),
+      });
+
       const data = await res.json();
-      setTotal(data.total);
-      setOrderPlaced(true);
-    } else {
-      alert("Failed to place order.");
+      if (res.ok) {
+        setTotal(data.total);
+        setOrderPlaced(true);
+        setName('');
+        setPhone('');
+        setMilkQty(0);
+        setCurdQty(0);
+      } else {
+        alert('Order failed!');
+      }
+    } catch (err) {
+      console.error('Order error:', err);
+      alert('Something went wrong.');
     }
   };
 
@@ -34,6 +50,29 @@ const Products: React.FC = () => {
     <div className="products-container">
       <div className="products-content">
         <h1>Order Our Products</h1>
+
+        <div className="form-group">
+          <label>Your Name:</label>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Phone Number:</label>
+          <input
+            type="tel"
+            placeholder="Enter phone number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
+        </div>
+
         <div className="form-group">
           <label>Milk (₹50/litre):</label>
           <input
@@ -43,6 +82,7 @@ const Products: React.FC = () => {
             onChange={(e) => setMilkQty(Number(e.target.value))}
           />
         </div>
+
         <div className="form-group">
           <label>Curd (₹40/kg):</label>
           <input

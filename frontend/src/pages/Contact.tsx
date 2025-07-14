@@ -1,4 +1,3 @@
-// src/pages/Contact.tsx
 import React, { useState } from 'react';
 import './Contact.css';
 
@@ -29,21 +28,30 @@ const Contact: React.FC = () => {
     }
 
     try {
-      const res = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/feedback', {
+      // 1️⃣ Send feedback to backend
+      const feedbackRes = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, message, rating: feedback }),
       });
 
-      if (res.ok) {
+      // 2️⃣ Send email to Gmail
+      const emailRes = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (feedbackRes.ok && emailRes.ok) {
         setSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
         setFeedback('');
       } else {
-        alert('Failed to submit feedback.');
+        alert('Something went wrong while submitting.');
       }
     } catch (error) {
-      console.error('Error submitting feedback:', error);
+      console.error('Error submitting:', error);
+      alert('Error occurred. Try again.');
     }
   };
 

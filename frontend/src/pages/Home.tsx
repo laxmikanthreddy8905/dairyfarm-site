@@ -1,3 +1,4 @@
+// src/pages/Home.tsx
 import React, { useState } from 'react';
 import './Home.css';
 
@@ -15,17 +16,24 @@ const Home: React.FC = () => {
       return;
     }
 
-    const res = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/home', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, phone, address }),
-    });
+    try {
+      const res = await fetch('https://dairyfarm-backend-27wu.onrender.com/api/home', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, address }),
+      });
 
-    if (res.ok) {
-      setSubmitted(true);
-      setName('');
-      setPhone('');
-      setAddress('');
+      if (res.ok) {
+        setSubmitted(true);
+        setName('');
+        setPhone('');
+        setAddress('');
+      } else {
+        alert('Submission failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('Home form error:', err);
+      alert('Something went wrong.');
     }
   };
 
